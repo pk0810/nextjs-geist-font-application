@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to WebApp MVC</h1>
+    <p class="lead">A modern ASP.NET Core MVC application with authentication</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Secure Authentication</h5>
+                <p class="card-text">Built-in login system with cookie-based authentication and user management.</p>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login Now</a>
+                }
+                else
+                {
+                    <span class="badge bg-success">You are logged in!</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">MVC Architecture</h5>
+                <p class="card-text">Clean separation of concerns using the Model-View-Controller pattern.</p>
+                <a href="#" class="btn btn-outline-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Entity Framework</h5>
+                <p class="card-text">Database integration with Entity Framework Core for data persistence.</p>
+                <a href="#" class="btn btn-outline-primary">Documentation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Welcome back, @User.Identity.Name!</h4>
+                <p>You are successfully logged in. You can now access protected areas of the application.</p>
+                <hr>
+                <p class="mb-0">
+                    <a asp-controller="Home" asp-action="Dashboard" class="btn btn-success">Go to Dashboard</a>
+                </p>
+            </div>
+        </div>
+    </div>
+}
