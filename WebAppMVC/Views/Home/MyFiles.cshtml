@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "My Files";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">My Files</h3>
+                    <a asp-action="Upload" class="btn btn-primary">Upload New File</a>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <div class="text-center">
+                        <p class="text-muted">File management feature is ready for implementation.</p>
+                        <p>Uploaded files will appear here once the file service is fully implemented.</p>
+                        <a asp-action="Upload" class="btn btn-outline-primary">Upload Your First File</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
