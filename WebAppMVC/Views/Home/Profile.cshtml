@@ -1,0 +1,87 @@
+@model WebAppMVC.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">My Profile</h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="text-center mb-4">
+                            @if (!string.IsNullOrEmpty(Model.ProfilePicturePath))
+                            {
+                                <img src="@Model.ProfilePicturePath" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+                            }
+                            else
+                            {
+                                <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                    <span class="text-white" style="font-size: 48px;">@Model.Username.Substring(0, 1).ToUpper()</span>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label"></label>
+                            <input asp-for="Username" class="form-control" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="profilePicture" class="form-label">Profile Picture</label>
+                            <input type="file" name="profilePicture" class="form-control" accept="image/*" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Member Since</label>
+                            <input type="text" class="form-control" value="@Model.CreatedAt.ToString("MMMM dd, yyyy")" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Last Login</label>
+                            <input type="text" class="form-control" value="@(Model.LastLoginAt?.ToString("MMMM dd, yyyy HH:mm") ?? "Never")" readonly />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
